@@ -19,9 +19,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CodeFeatureExtractor {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
+        //指定当前处理的数据集及输出目录
+        String currentDataset = "Albergate";
+        String outputPath = "results/" + currentDataset;
         //读取resources文件夹下的数据集代码根目录
         ClassLoader classLoader = CodeFeatureExtractor.class.getClassLoader();
-        URL resource = classLoader.getResource("CoESTData/iTrust/iTrust-code/iTrust/src");
+//        URL resource = classLoader.getResource("CoESTData/iTrust/iTrust-code/iTrust/src");
+        URL resource = classLoader.getResource("CoESTData/Albergate/to_be_traced_source_code");
         if (resource == null) {
             throw new IllegalArgumentException("未找到资源文件路径！");
         }
@@ -55,12 +59,14 @@ public class CodeFeatureExtractor {
                     }
                 });
 
+        // 创建文件夹路径
+        Files.createDirectories(Paths.get(outputPath));
         //保存各特征和文件名到txt文件中
-        saveToTxt("CN.txt", allClassNames);
-        saveToTxt("MN.txt", allMethodNames);
-        saveToTxt("VN.txt", allVariableNames);
-        saveToTxt("CMT.txt", allComments);
-        saveToTxt("CMT_Name.txt", allFileNames);
+        saveToTxt(outputPath + "/CN.txt", allClassNames);
+        saveToTxt(outputPath + "/MN.txt", allMethodNames);
+        saveToTxt(outputPath + "/VN.txt", allVariableNames);
+        saveToTxt(outputPath + "/CMT.txt", allComments);
+        saveToTxt(outputPath + "/CMT_Name.txt", allFileNames);
     }
 
     /**

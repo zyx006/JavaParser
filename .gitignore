@@ -1,8 +1,4 @@
-CMT.txt
-CMT_Name.txt
-CN.txt
-MN.txt
-VN.txt
+results/
 src/main/resources/CoESTData
 
 target/
